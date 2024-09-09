@@ -1,5 +1,5 @@
 from turtle import *
-from random import randrange
+from random import randrange, sample
 from freegames import square, vector
 
 food = vector(0, 0)
@@ -14,6 +14,9 @@ def change(x, y):
 def inside(head):
     "Return True if head inside boundaries."
     return -200 < head.x < 190 and -200 < head.y < 190
+
+colors = ["blue", "orange", "purple", "pink", "yellow"]
+snakeColor, foodColor = sample(colors, 2)
 
 def move():
     "Move snake forward one segment."
@@ -37,9 +40,9 @@ def move():
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, snakeColor)
 
-    square(food.x, food.y, 9, 'green')
+    square(food.x, food.y, 9, foodColor)
     update()
     ontimer(move, 100)
 
@@ -53,3 +56,4 @@ onkey(lambda: change(0, 10), 'Up')
 onkey(lambda: change(0, -10), 'Down')
 move()
 done()
+
