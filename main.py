@@ -48,9 +48,9 @@ def rectangle(start, end):
     down()
     begin_fill()
     for count in range(2):
-        forward(10)
+        forward(40)
         left(90)
-        forward(50)
+        forward(60)
         left(90)
     end_fill()
 
@@ -59,7 +59,14 @@ def rectangle(start, end):
 
 def triangle(start, end):
     """Draw triangle from start to end."""
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+    for count in range(3):  # Un triángulo tiene 3 lados
+        forward(50)         # Cambia el tamaño si lo necesitas
+        left(120)           # El ángulo entre los lados de un triángulo equilátero es 120 grados
+    end_fill()
 
 
 def tap(x, y):
@@ -96,4 +103,5 @@ onkey(lambda: store('shape', circle), 'c')
 onkey(lambda: store('shape', rectangle), 'r')
 onkey(lambda: store('shape', triangle), 't')
 done()
+
 
