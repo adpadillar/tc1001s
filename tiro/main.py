@@ -70,9 +70,9 @@ def move():
 
     draw()
 
-    for target in targets:
+    for i, target in enumerate(targets):
         if not inside(target):
-            return
+            del targets[i]
 
     ontimer(move, 50)
 
