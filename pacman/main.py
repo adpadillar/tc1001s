@@ -134,7 +134,7 @@ def move():
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
 
-    for point, course in ghosts:
+    for idx, (point, course) in enumerate(ghosts):
         if valid(point + course):
             point.move(course)
         else:
@@ -144,7 +144,35 @@ def move():
                 vector(0, 10),
                 vector(0, -10),
             ]
-            plan = choice(options)
+            
+            
+            xDistance = pacman.x - point.x
+            yDistance = pacman.y - point.y
+
+            xDirection = options[1] if xDistance < 0 else options[0]
+            yDirection = options[3] if yDistance < 0 else options[2]
+
+            horizontal = True if abs(xDistance) > abs(yDistance) else False
+
+            if horizontal:
+                if valid(point + xDirection):
+                    plan = xDirection
+                elif valid(point + yDirection):
+                    plan = yDirection
+                elif valid(point - xDirection):
+                    plan = -xDirection
+                else:
+                    plan = -yDirection
+            else:
+                if valid(point + yDirection):
+                    plan = yDirection
+                elif valid(point + xDirection):
+                    plan = xDirection
+                elif valid(point - xDirection):
+                    plan = -xDirection
+                else:
+                    plan = -yDirection
+
             course.x = plan.x
             course.y = plan.y
 
