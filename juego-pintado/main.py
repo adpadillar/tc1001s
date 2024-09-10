@@ -13,7 +13,7 @@ from turtle import *
 from freegames import vector
 import math
 
-
+# Dibuja una línea, dados inicio o fin
 def line(start, end):
     """Draw line from start to end."""
     up()
@@ -21,7 +21,7 @@ def line(start, end):
     down()
     goto(end.x, end.y)
 
-
+# Dibuja un cuadrado, dados inicio o fin
 def square(start, end):
     """Draw square from start to end."""
     up()
@@ -36,8 +36,9 @@ def square(start, end):
     end_fill()
 
 
+# Dibuja un círculo, dados inicio o fin
 def draw_circle(start, end):
-    """Calculate radius based on distance between start and end"""
+    # Calcula el radio del círculo usando el teorema de Pitágoras
     radius = math.sqrt((end.x - start.x)**2 + (end.y - start.y)**2)
     
     up()
@@ -47,6 +48,7 @@ def draw_circle(start, end):
     circle(radius)  # Draw the circle
     end_fill()
 
+# Dibuja un rectángulo, dados su ancho y alto
 def rectangle(start, end):
     """Draw rectangle from start to end."""
     up()
@@ -61,8 +63,7 @@ def rectangle(start, end):
     end_fill()
 
 
-
-
+# Dibuja un triángulo, dados inicio o fin
 def triangle(start, end):
     """Draw triangle from start to end."""
     up()

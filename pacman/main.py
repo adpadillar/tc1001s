@@ -26,7 +26,6 @@ ghosts = [
     [vector(100, -160), vector(-5, 0)],
 
 ]
-# fmt: off
 
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -50,9 +49,6 @@ tiles = [
     0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
-
-# fmt: on
-
 
 
 def square(x, y):
@@ -138,6 +134,7 @@ def move():
         if valid(point + course):
             point.move(course)
         else:
+            # determina la velocidad de los fantasmas
             options = [
                 vector(10, 0),
                 vector(-10, 0),
@@ -145,15 +142,24 @@ def move():
                 vector(0, -10),
             ]
             
-            
+            # Calcula la distancia entre pacman y el fantasma
             xDistance = pacman.x - point.x
             yDistance = pacman.y - point.y
 
+            # Asigna la dirección dependiendo de la distancia (izquierda o derecha, arriba o abajo)
             xDirection = options[1] if xDistance < 0 else options[0]
             yDirection = options[3] if yDistance < 0 else options[2]
 
+            # Determina si la dirección es horizontal o vertical dependiendo de cual
+            # distancia es mayor
             horizontal = True if abs(xDistance) > abs(yDistance) else False
 
+            # Intenta moverse en la direccion ideal hacia pacman,
+            # pero siempre es posible que esto sea un movimiento invalido,
+            # por lo que se tienen que checar los movimientos alternativos
+            # que si sean validos. Se revisan en orden de que tan buenos
+            # son los movimientos, para que asi el fantasma siempre se 
+            # acerque a pacman
             if horizontal:
                 if valid(point + xDirection):
                     plan = xDirection

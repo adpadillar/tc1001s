@@ -23,8 +23,8 @@ def tap(x, y):
     if not inside(ball):
         ball.x = -199
         ball.y = -199
-        speed.x = (x + 400) / 25
-        speed.y = (y + 400) / 25
+        speed.x = (x + 400) / 25 # calcula la velocidad en x
+        speed.y = (y + 400) / 25 # calcula la velocidad en y
 
 
 def inside(xy):
@@ -55,7 +55,8 @@ def move():
         targets.append(target)
 
     for target in targets:
-        target.x -=2 
+        # mueve los targets a la izquierda
+        target.x -= 2 
 
     if inside(ball):
         speed.y -= 0.35
@@ -72,7 +73,9 @@ def move():
 
     for i, target in enumerate(targets):
         if not inside(target):
-            del targets[i]
+            # borra los targets que salen de la pantalla
+            # por lo tanto, no termina el juego
+            del targets[i] 
 
     ontimer(move, 50)
 

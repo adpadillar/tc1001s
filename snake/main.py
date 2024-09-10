@@ -5,7 +5,7 @@ from freegames import square, vector
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
-speed = 100  # Initial speed
+speed = 100  # Velocidad inicial (menor es mas rapido)
 
 def change(x, y):
     "Change snake direction."
@@ -21,12 +21,14 @@ def inside(head):
     "Return True if head inside boundaries."
     return -200 < head.x < 190 and -200 < head.y < 190
 
+# Colores para el snake y la comida, se calculan de manera aleatoria
+# cada vez que se inicia el juego
 colors = ["blue", "orange", "purple", "pink", "yellow"]
 snakeColor, foodColor = sample(colors, 2)
 
 def move():
     "Move snake forward one segment."
-    global speed  # Add global speed variable
+    global speed
     head = snake[-1].copy()
     head.move(aim)
 
@@ -41,9 +43,11 @@ def move():
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
-        speed = max(50, speed - 2) 
+        speed = max(50, speed - 2) # al comer, la velocidad se aumenta (menor es mas rapido)
     else:
         newFood = {"x": -1000, "y": -1000}
+        # mover la comida a una nueva posición aleatoria
+        # a un espacio adyacente
         while not inside_food(newFood):
             newFoodX = food.x + choice([-1, 0, 1]) * 10
             newFoodY = food.y + choice([-1, 0, 1]) * 10
@@ -59,7 +63,7 @@ def move():
 
     square(food.x, food.y, 9, foodColor)
     update()
-    ontimer(move, speed)
+    ontimer(move, speed) # se llama a la función move cada speed milisegundos
 
 setup(420, 420, 370, 0)
 hideturtle()

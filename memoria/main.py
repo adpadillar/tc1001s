@@ -14,14 +14,15 @@ from turtle import *
 
 from freegames import path
 
+# Define los posibles colores y formas posibles para los tiles
 tile_shapes = ["triangle", "circle", "square", "star"]
 tile_colors = ["red", "green", "blue", "yellow", "purple", "orange", "pink", "cyan"]
 
+# Crea una lista de tiles con todas las combinaciones posibles de formas y colores
 tiles = [(x, y) for x in tile_shapes for y in tile_colors] * 2
-shuffle(tiles)
+shuffle(tiles) # Mezcla los tiles para que no estén en orden
 
-print(len(tiles))
-
+# Dibuja una estrella, dados inicio o fin y color
 def draw_star(x, y, color):
     """Draw a star with the given color at (x, y)."""
     print("Drawing star at", x, y, "with color", color)
@@ -35,7 +36,7 @@ def draw_star(x, y, color):
         right(144)
     end_fill()
 
-
+# Dibuja un triángulo, dados inicio o fin y color
 def draw_triangle(x, y, color):
     """Draw an equilateral triangle with the given color at (x, y)."""
     print("Drawing triangle at", x, y, "with color", color)
@@ -49,6 +50,7 @@ def draw_triangle(x, y, color):
         left(120)
     end_fill()
 
+# Dibuja un círculo, dados inicio o fin y color
 def draw_circle(x, y, color):
     """Draw a circle with the given color at (x, y)."""
     print("Drawing circle at", x, y, "with color", color)
@@ -60,6 +62,7 @@ def draw_circle(x, y, color):
     circle(25)  # radius of 25 to match the size of other shapes
     end_fill()
 
+# Dibuja un cuadrado, dados inicio o fin y color
 def draw_square(x, y, color):
     """Draw a square with the given color at (x, y)."""
     print("Drawing square at", x, y, "with color", color)
@@ -135,6 +138,8 @@ def draw():
         up()
         goto(x + 2, y)
 
+        # Dibuja la forma en el tile dependiendo de la forma y color
+        # generado inicialmente
         shape_name, shape_color = tiles[mark]
         if shape_name == 'circle':
             draw_circle(x, y, shape_color)
@@ -147,9 +152,12 @@ def draw():
     
     up()
     goto(-200, 200)
+
+    # Escribe el número de taps en el tablero
     color('black')
     write(f"Taps: {state['taps']}", font=('Arial', 16, 'normal'))
 
+    # Si el juego se ha ganado, muestra un mensaje con el número de taps
     if all(not h for h in hide):
         up()
         goto(0, 0)
