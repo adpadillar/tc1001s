@@ -135,15 +135,15 @@ def draw():
         up()
         goto(x + 2, y)
 
-        shape_name, color = tiles[mark]
+        shape_name, shape_color = tiles[mark]
         if shape_name == 'circle':
-            draw_circle(x, y, color)
+            draw_circle(x, y, shape_color)
         elif shape_name == 'triangle':
-            draw_triangle(x, y, color)
+            draw_triangle(x, y, shape_color)
         elif shape_name == 'square':
-            draw_square(x, y, color)
+            draw_square(x, y, shape_color)
         elif shape_name == 'star':
-            draw_star(x, y, color)
+            draw_star(x, y, shape_color)
     
     up()
     goto(-200, 200)
