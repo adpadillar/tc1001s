@@ -14,8 +14,67 @@ from turtle import *
 
 from freegames import path
 
+tile_shapes = ["triangle", "circle", "square", "star"]
+tile_colors = ["red", "green", "blue", "yellow", "purple", "orange", "pink", "cyan"]
+
+tiles = [(x, y) for x in tile_shapes for y in tile_colors] * 2
+shuffle(tiles)
+
+print(len(tiles))
+
+def draw_star(x, y, color):
+    """Draw a star with the given color at (x, y)."""
+    print("Drawing star at", x, y, "with color", color)
+    up()
+    goto(x, y + 30)
+    down()
+    fillcolor(color)
+    begin_fill()
+    for _ in range(5):
+        forward(50)  # Reduced size to fit within the box
+        right(144)
+    end_fill()
+
+
+def draw_triangle(x, y, color):
+    """Draw an equilateral triangle with the given color at (x, y)."""
+    print("Drawing triangle at", x, y, "with color", color)
+    up()
+    goto(x, y)
+    down()
+    fillcolor(color)
+    begin_fill()
+    for _ in range(3):
+        forward(50)
+        left(120)
+    end_fill()
+
+def draw_circle(x, y, color):
+    """Draw a circle with the given color at (x, y)."""
+    print("Drawing circle at", x, y, "with color", color)
+    up()
+    goto(x + 25, y)
+    down()
+    fillcolor(color)
+    begin_fill()
+    circle(25)  # radius of 25 to match the size of other shapes
+    end_fill()
+
+def draw_square(x, y, color):
+    """Draw a square with the given color at (x, y)."""
+    print("Drawing square at", x, y, "with color", color)
+    up()
+    goto(x, y)
+    down()
+    fillcolor(color)
+    begin_fill()
+    for _ in range(4):
+        forward(50)
+        left(90)
+    end_fill()
+
+
 car = path('car.gif')
-tiles = list(range(32)) * 2
 state = {'mark': None, 'taps': 0}
 hide = [True] * 64
 
@@ -75,8 +134,16 @@ def draw():
         x, y = xy(mark)
         up()
         goto(x + 2, y)
-        color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+
+        shape_name, color = tiles[mark]
+        if shape_name == 'circle':
+            draw_circle(x, y, color)
+        elif shape_name == 'triangle':
+            draw_triangle(x, y, color)
+        elif shape_name == 'square':
+            draw_square(x, y, color)
+        elif shape_name == 'star':
+            draw_star(x, y, color)
     
     up()
     goto(-200, 200)
@@ -93,7 +160,6 @@ def draw():
     ontimer(draw, 100)
 
 
-shuffle(tiles)
 setup(420, 420, 370, 0)
 addshape(car)
 hideturtle()
